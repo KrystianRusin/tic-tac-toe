@@ -32,7 +32,16 @@ function gameBoard(p1, p2) {
         const cells = document.querySelectorAll(".grid-cell");
         cells.forEach(cell => {
             cell.addEventListener('click', function() {
-                game.placeMark(player1, cell)
+                if (player.getTurn(player1) == true){
+                    game.placeMark(player1, cell)
+                    player.setTurn(player1, false)
+                    player.setTurn(player2, true)
+                } else if (player.getTurn(player2) == true){
+                    game.placeMark(player2, cell)
+                    player.setTurn(player2, false)
+                    player.setTurn(player1, true)
+                    
+                }
             });
         })
     }
@@ -74,6 +83,7 @@ const game = (function() {
     const placeMark = (p, cell) => {
         let mark = player.getMark(p)
         cell.innerHTML = mark
+
     }
 
     return {
