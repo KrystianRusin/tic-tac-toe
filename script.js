@@ -55,6 +55,9 @@ function gameBoard(p1, p2) {
         let cellId = cell.dataset.cellId
         cellId = cellId.split(" ")
         gameState[cellId[0]][cellId[1]] = player.getMark(p)
+        if (game.checkWinner(gameState,cellId[0], cellId[1]) == true){
+            console.log("Game Over")
+        }
     }
 
    
@@ -97,8 +100,60 @@ const game = (function() {
         cell.innerHTML = mark
     }
 
+    const checkWinner = (gameState, row, col) => {
+        const player = gameState[row][col];
+        const size = gameState.length;
+
+
+        let win = true;
+        for (let i = 0; i < size; i++) {
+            if (gameState[row][i] !== player) {
+            win = false;
+            break;
+            }
+        }
+        if (win) return true;
+
+
+        win = true;
+        for (let i = 0; i < size; i++) {
+            if (gameState[i][col] !== player) {
+            win = false;
+            break;
+            }
+        }
+        if (win) return true;
+
+        
+        if (row === col) {
+            win = true;
+            for (let i = 0; i < size; i++) {
+            if (gameState[i][i] !== player) {
+                win = false;
+                break;
+            }
+            }
+            if (win) return true;
+        }
+
+
+        if (row + col === size - 1) {
+            win = true;
+            for (let i = 0; i < size; i++) {
+            if (gameState[i][size - 1 - i] !== player) {
+                win = false;
+                break;
+            }
+            }
+            if (win) return true;
+        }
+
+        return false;
+        }
+
     return {
-        placeMark
+        placeMark,
+        checkWinner
     }
 })()
 
