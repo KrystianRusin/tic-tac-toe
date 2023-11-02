@@ -64,9 +64,10 @@ function gameBoard(p1, p2) {
 
     const updateGame = (p, cellId) => {
        
-        gameState[cellId[0]][cellId[1]] = player.getMark(p)
-        if (game.checkWinner(gameState,cellId[0], cellId[1]) == true){
-            console.log("Game Over")
+        gameState[cellId[0]][cellId[1]] = player.getMark(p);
+    
+        if (game.checkWinner(gameState, cellId[0], cellId[1])) {
+            console.log("Game Over");
         }
     }
 
@@ -111,13 +112,13 @@ const game = (function() {
     }
 
     const checkWinner = (gameState, row, col) => {
-        const player = gameState[row][col];
+        const playerMark = gameState[row][col];
         const size = gameState.length;
 
 
         let win = true;
         for (let i = 0; i < size; i++) {
-            if (gameState[row][i] !== player) {
+            if (gameState[row][i] !== playerMark) {
             win = false;
             break;
             }
@@ -127,7 +128,7 @@ const game = (function() {
 
         win = true;
         for (let i = 0; i < size; i++) {
-            if (gameState[i][col] !== player) {
+            if (gameState[i][col] !== playerMark) {
             win = false;
             break;
             }
@@ -138,7 +139,7 @@ const game = (function() {
         if (row === col) {
             win = true;
             for (let i = 0; i < size; i++) {
-            if (gameState[i][i] !== player) {
+            if (gameState[i][i] !== playerMark) {
                 win = false;
                 break;
             }
@@ -147,16 +148,15 @@ const game = (function() {
         }
 
 
-        if (row + col === size - 1) {
-            win = true;
-            for (let i = 0; i < size; i++) {
-            if (gameState[i][size - 1 - i] !== player) {
-                win = false;
-                break;
-            }
-            }
-            if (win) return true;
+        win = true;
+        for (let i = 0; i < size; i++) {
+        if (gameState[size - 1 - i][i] !== playerMark) {
+            win = false;
+             break;
+             }
         }
+        if (win) return true;
+          
 
         const isBoardFull = gameState.every(row => row.every(cell => cell !== null));
         if (isBoardFull) return true;
