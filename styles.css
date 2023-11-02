@@ -18,7 +18,7 @@
     font-size: 52px;
 }
 
-.form-container {
+.container {
     margin-top: 120px;
     display: flex;
     justify-content: center;
@@ -31,7 +31,7 @@ form {
     gap: 64px;
 }
 
-form button {
+.start-btn {
     flex: none;
     width: 150px;
     height: 60px;
@@ -55,4 +55,20 @@ form button {
 .name-input input {
     background-color: #f1f5f9;
     height: 14px;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-cell {
+    height: 100px;
+    width: 100px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.grid-cell:hover {
+    background-color: #cbd5e1;
 }
