@@ -148,6 +148,9 @@ const game = (function() {
             if (win) return true;
         }
 
+        const isBoardFull = gameState.every(row => row.every(cell => cell !== null));
+        if (isBoardFull) return true;
+
         return false;
         }
 
