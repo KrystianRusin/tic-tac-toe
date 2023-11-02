@@ -35,25 +35,35 @@ function gameBoard(p1, p2) {
         const cells = document.querySelectorAll(".grid-cell");
         cells.forEach(cell => {
             cell.addEventListener('click', function() {
+                let cellId = cell.dataset.cellId
+                cellId = cellId.split(" ")
                 if (player.getTurn(player1) == true){
-                    game.placeMark(player1, cell)
-                    updateGame(player1, cell)
-                    player.setTurn(player1, false)
-                    player.setTurn(player2, true)
+                    if (gameState[cellId[0]][cellId[1]] == null){
+                        game.placeMark(player1, cell)
+                        updateGame(player1, cellId)
+                        player.setTurn(player1, false)
+                        player.setTurn(player2, true)
+                    }
+                    else {
+                        alert("Mark already placed in that cell")
+                    }
                 } else if (player.getTurn(player2) == true){
-                    game.placeMark(player2, cell)
-                    updateGame(player2, cell)
-                    player.setTurn(player2, false)
-                    player.setTurn(player1, true)
+                    if (gameState[cellId[0]][cellId[1]] == null){
+                        game.placeMark(player2, cell)
+                        updateGame(player2, cellId)
+                        player.setTurn(player2, false)
+                        player.setTurn(player1, true)
+                    }else {
+                        alert("Mark already placed in that cell")
+                    }
                     
                 }
             });
         })
     }
 
-    const updateGame = (p, cell) => {
-        let cellId = cell.dataset.cellId
-        cellId = cellId.split(" ")
+    const updateGame = (p, cellId) => {
+       
         gameState[cellId[0]][cellId[1]] = player.getMark(p)
         if (game.checkWinner(gameState,cellId[0], cellId[1]) == true){
             console.log("Game Over")
