@@ -11,7 +11,7 @@
             for (let j = 0; j < 3; j++) {
                 const cell = document.createElement('div');
                 cell.classList.add('grid-cell');
-                cell.dataset.cellId = i.toString() + j.toString()
+                cell.dataset.cellId = i.toString() + " " + j.toString()
                 gamediv.appendChild(cell);
             }
         }
@@ -26,6 +26,9 @@
 
 
 function gameBoard(p1, p2) {
+
+    const gameState = [[null,null,null],[null,null,null],[null,null,null]]
+
     const init = () => {
         const player1 = player.createPlayer(p1, "X", true)
         const player2 = player.createPlayer(p2, "O", false)
@@ -34,10 +37,12 @@ function gameBoard(p1, p2) {
             cell.addEventListener('click', function() {
                 if (player.getTurn(player1) == true){
                     game.placeMark(player1, cell)
+                    updateGame(player1, cell)
                     player.setTurn(player1, false)
                     player.setTurn(player2, true)
                 } else if (player.getTurn(player2) == true){
                     game.placeMark(player2, cell)
+                    updateGame(player2, cell)
                     player.setTurn(player2, false)
                     player.setTurn(player1, true)
                     
@@ -45,7 +50,14 @@ function gameBoard(p1, p2) {
             });
         })
     }
-    
+
+    const updateGame = (p, cell) => {
+        let cellId = cell.dataset.cellId
+        cellId = cellId.split(" ")
+        gameState[cellId[0]][cellId[1]] = player.getMark(p)
+    }
+
+   
     init()
 }
 
@@ -83,7 +95,6 @@ const game = (function() {
     const placeMark = (p, cell) => {
         let mark = player.getMark(p)
         cell.innerHTML = mark
-
     }
 
     return {
