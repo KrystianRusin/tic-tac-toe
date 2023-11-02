@@ -4,6 +4,7 @@
         const p1 = document.getElementById("p1-name").value
         const p2 = document.getElementById("p2-name").value
         const container = document.querySelector(".container")
+        const wrapper = document.querySelector(".container-wrapper")
         container.innerHTML = ""
         const gamediv = document.createElement('div')
         gamediv.classList.add("game-container")
@@ -16,6 +17,10 @@
             }
         }
         container.appendChild(gamediv)
+        const restartBtn = document.createElement("button")
+        restartBtn.classList.add("restart-btn")
+        restartBtn.innerHTML = "RESTART"
+        container.appendChild(restartBtn)
         gameBoard(p1, p2)
         }
 
@@ -60,14 +65,24 @@ function gameBoard(p1, p2) {
                 }
             });
         })
+        const restartBtn = document.querySelector(".restart-btn")
+        restartBtn.addEventListener('click', function() {
+            clearBoard(cells)
+        })
+    }
+
+    const clearBoard = (cells) => {
+        cells.forEach(cell => {
+            cell.innerHTML = ""
+        })
     }
 
     const updateGame = (p, cellId) => {
        
         gameState[cellId[0]][cellId[1]] = player.getMark(p);
-    
+
         if (game.checkWinner(gameState, cellId[0], cellId[1])) {
-            console.log("Game Over");
+            alert("Game Over, The Winner is: " + player.getName(p));
         }
     }
 

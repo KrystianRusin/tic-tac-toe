@@ -21,7 +21,16 @@
 .container {
     margin-top: 120px;
     display: flex;
+    gap: 32px;
+    align-items: center;
     justify-content: center;
+}
+
+.restart-btn{
+    flex: none;
+    width: 150px;
+    height: 60px;
+    background-color: #FF2600 ;
 }
 
 form {
@@ -54,7 +63,7 @@ form {
 
 .name-input input {
     background-color: #f1f5f9;
-    height: 14px;
+    height: 24px;
 }
 
 .game-container {
